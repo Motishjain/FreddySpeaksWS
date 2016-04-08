@@ -13,13 +13,14 @@ var Feedback = new Schema({
 	billAmount : String,
 	rewardCategory : String,
 	rewardId : String,
-	ratings : [Rating],
+	ratings : [Rating]
 });
 
 var Feedbacks = new Schema({
 	outletCode : String,
-	updateDate : Date,
-	feedbackList : [Feedback]
+	updatedDate : Date,
+	feedbackList : [Feedback],
+	createdDate : Date
 });
 
 module.exports = mongoose.model('feedbacks', Feedbacks);

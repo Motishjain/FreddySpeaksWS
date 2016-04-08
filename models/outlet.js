@@ -12,5 +12,4 @@ var Outlets = new Schema({
 	cellNumber : String,
 	outletTypeCode : String
 });
-
 module.exports = mongoose.model('outlets', Outlets);
