@@ -12,7 +12,7 @@ var outletFeedback;
 module.exports = function(app, appEnv) {
 	var router = express.Router();
 
-	router.route("/registerOutlet").get(function(req, res) {
+	router.route("/submitFeedback").post(function(req, res) {
 		var jsonRequest = req.body;
 		if (jsonRequest.outletCode) {
 			OutletFeedback.find({
