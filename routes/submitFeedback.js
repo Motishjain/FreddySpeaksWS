@@ -5,7 +5,7 @@ var OutletFeedback = models.OutletFeedback;
 var Feedback = models.Feedback;
 
 var jsonResponse = function(success, data, msg) {
-	return '{success:' + success + ',data:' + data + ',msg:' + msg + '}';
+	return '{"success":' + success + ',"data":' + data + ',"msg":' + msg + '}';
 };
 
 module.exports = function(app, appEnv) {
