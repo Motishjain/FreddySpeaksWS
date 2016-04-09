@@ -11,7 +11,6 @@ var jsonResponseObject = function(success, data, msg) {
 	jsonObject.msg = msg;
 	return jsonObject;
 };
-
 module.exports = function(app, appEnv) {
 	
 	app.post("/submitFeedback",function(req, res) {

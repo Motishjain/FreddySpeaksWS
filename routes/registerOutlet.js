@@ -16,7 +16,6 @@ function generateUUID() {
 			});
 	return uuid;
 }
-
 var jsonResponseObject = function(success, data, msg) {
 	var jsonObject = {};
 	jsonObject.success = success;
