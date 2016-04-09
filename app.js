@@ -2,14 +2,15 @@
 //=============================================================================
 
 //call the packages we need
-var express = require('express'); // call express
-var app = express(); // define our app using express
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var Reward = require('./models/reward');
+var express = require('express'), // call express
+bodyParser = require('body-parser'),
+mongoose = require('mongoose'),
+app = express();
 
 mongoose.connect('mongodb://freddyuser:missionpossible@ds019708.mlab.com:19708/rateus');
 
+
+app.set('port', process.env.PORT || 3000);
 
 //configure app to use bodyParser()
 //this will let us get the data from a POST
@@ -31,31 +32,12 @@ router.use(function(req, res, next) {
 	next(); // make sure we go to the next routes and don't stop here
 });
 
-//test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-	res.json({
-		message : 'hooray! welcome to our api!'
-	});
-});
-
-//localhost:8080/api/fetchRewards
-router.route('/fetchRewards')
-.get(function(req, res) {
-	
-	Reward.find({'outletType':'RET'},function(err, rewards) {
-        if (err) {
-            res.send(err);
-        }
-        res.json(rewards);
-    });
-    
-});
-
 //more routes for our API will happen here
 
 //REGISTER OUR ROUTES -------------------------------
-//all of our routes will be prefixed with /api
-app.use('/api', router);
+var routes = require('./routes');
+
+app.use('/',routes);
 
 //START THE SERVER
 //=============================================================================

@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var Outlets = new Schema({
 	outletName : String,
-	aiasName : String,
+	outletCode : String,
+	aliasName : String,
 	addressLine1 : String,
 	addressLine2 : String,
 	pinCode : String,
