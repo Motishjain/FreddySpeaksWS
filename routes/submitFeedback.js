@@ -3,23 +3,15 @@ var mongoose = require('mongoose');
 var models = require('../models/outletFeedback');
 var OutletFeedback = models.OutletFeedback;
 var Feedback = models.Feedback;
-var outletFeedback;
 
+var jsonResponse = function(success, data, msg) {
+	return '{success:' + success + ',data:' + data + ',msg:' + msg + ',}';
+};
 
 module.exports = function(app, appEnv) {
 	
 	app.post("/submitFeedback",function(req, res) {
-		var jsonRequest = JSON.parse(req.body);
-		if (jsonRequest.outletCode) {
-			OutletFeedback.find({
-				'outletCode' : jsonRequest.outletCode
-			}, function(err, outletFeedbackLocal) {
-				if (err) {
-					res.send(err);
-				}
-				outletFeedback = outletFeedbackLocal;
-			});	
-		}
+		var jsonRequest = req.body;
 		var feedback = new Feedback();
 		feedback.userName = jsonRequest.userName;
 		feedback.userPhoneNumber = jsonRequest.userPhoneNumber;
@@ -29,20 +21,35 @@ module.exports = function(app, appEnv) {
 		feedback.rewardId = jsonRequest.rewardId;
 		feedback.ratingsMap = jsonRequest.ratingsMap;
 		feedback.createdDate = new Date();
+	
+		if (jsonRequest.outletCode) {				
+			OutletFeedback.findOne({
+				'outletCode' : jsonRequest.outletCode
+			}, function(err, outletFeedback) {
+				if (err) {
+					res.json(jsonResponse(false, null, err));
+				}				
+				if(outletFeedback) {		
+					outletFeedback.feedbackList.push(feedback);
+					outletFeedback.updatedDate = new Date();
+					outletFeedback.save();
+					res.json(jsonResponse(true, jsonRequest.outletCode,
+					"Feedback saved Successfully"));
+				}
+				else {
+					outletFeedback = new OutletFeedback();
+					outletFeedback.outletCode = jsonRequest.outletCode;
+					outletFeedback.createdDate = new Date();
+					outletFeedback.feedbackList.push(feedback);
+					outletFeedback.updatedDate = new Date();
+					outletFeedback.save();
+					res.json(jsonResponse(true, jsonRequest.outletCode,
+					"Feedback saved Successfully"));
+				}
+			});	
+		}
 		
-		if(outletFeedback) {		
-			outletFeedback.feedbackList.push(feedback);
-			outletFeedback.updatedDate = new Date();
-			outletFeedback.save();
-		}
-		else {
-			outletFeedback = new OutletFeedback();
-			outletFeedback.outletCode = jsonRequest.outletCode;
-			outletFeedback.createdDate = new Date();
-			outletFeedback.feedbackList.push(feedback);
-			outletFeedback.updatedDate = new Date();
-			outletFeedback.save();
-		}
+		
 
 	});
 };
