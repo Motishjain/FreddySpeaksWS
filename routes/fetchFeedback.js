@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var models = require('../models/feedback');
+var models = require('../models/outletFeedback');
 var OutletFeedback = models.OutletFeedback;
 var Feedback = models.Feedback;
 var outletFeedbackList;
