@@ -10,7 +10,7 @@ module.exports = function(app) {
 		}, function(err, rewards) {
 			if (err) {
 				res.send(err);
-			}
+			}	
 			res.json(rewards);
 		});
 	});

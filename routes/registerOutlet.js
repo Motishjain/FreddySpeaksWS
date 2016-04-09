@@ -18,7 +18,7 @@ function generateUUID() {
 }
 
 var jsonResponse = function(success, data, msg) {
-	return '{success:' + success + ',data:' + data + ',msg:' + msg + ',}';
+	return '{success:' + success + ',data:' + data + ',msg:' + msg + '}';
 };
 
 module.exports = function(app, appEnv) {
@@ -58,17 +58,10 @@ module.exports = function(app, appEnv) {
 			outlet.outletTypeCode = jsonRequest.outletTypeCode;
 			outlet.save(function(err) {
 				if (err) {
-					res.json({
-						success : false,
-						data : null,
-						msg : 'Unable to create outlet'
-					});
+					res.json(jsonResponse(false, null, err));
 				} else {
-					res.json({
-						success : true,
-						data : outlet.outletCode,
-						msg : 'Outlet registered successfully'
-					});
+					res.json(jsonResponse(true, jsonRequest.outletCode,
+					"Outlet registered Successfully"));
 				}
 			});
 		}
