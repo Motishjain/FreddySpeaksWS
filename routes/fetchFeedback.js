@@ -1,6 +1,3 @@
-/*
- * GET home page.
- */
 var express = require('express');
 var mongoose = require('mongoose');
 var models = require('../models/feedback');

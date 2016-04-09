@@ -35,9 +35,8 @@ router.use(function(req, res, next) {
 //more routes for our API will happen here
 
 //REGISTER OUR ROUTES -------------------------------
-var routes = require('./routes');
+var routes = require('./routes')(app);
 
-app.use('/',routes);
 
 //START THE SERVER
 //=============================================================================
