@@ -1,11 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Rating = new Schema({
-	questionId : String,
-	rating : Number
-});
-
 var Feedback = new Schema({
 	userName : String,
 	userPhoneNumber : String,
@@ -13,7 +8,7 @@ var Feedback = new Schema({
 	billAmount : String,
 	rewardCategory : String,
 	rewardId : String,
-	ratings : [Rating],
+	ratings : String,
 	createdDate : Date
 });
 

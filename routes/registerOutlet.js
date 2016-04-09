@@ -1,31 +1,58 @@
 /*
  * GET home page.
  */
+
 var express = require('express');
 var mongoose = require('mongoose');
 var Outlet = require('../models/outlet');
 
+function generateUUID() {
+	var d = new Date().getTime();
+	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+			function(c) {
+				var r = (d + Math.random() * 16) % 16 | 0;
+				d = Math.floor(d / 16);
+				return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+			});
+	return uuid;
+}
+
+var jsonResponse = function(success, data, msg) {
+	return '{success:' + success + ',data:' + data + ',msg:' + msg + ',}';
+};
+
 module.exports = function(app, appEnv) {
 
-	app.post("/registerOutlet", function(req, res) {	
-		var jsonRequest = JSON.parse(req.body);
+	app.post("/registerOutlet", function(req, res) {
+		var jsonRequest = req.body;
 		if (jsonRequest.outletCode) {
-			Outlet.find({
-				'outletCode' : req.outletCode
+			Outlet.findOneAndUpdate({
+				'outletCode' : jsonRequest.outletCode
+			}, {
+				'outletName' : jsonRequest.outletName,
+				'aliasName' : jsonRequest.aliasName,
+				'addrLine1' : jsonRequest.addrLine1,
+				'addrLine2' : jsonRequest.addrLine2,
+				'pinCode' : jsonRequest.pinCode,
+				'email' : jsonRequest.email,
+				'workPhone' : jsonRequest.workPhone,
+				'cellNumber' : jsonRequest.cellNumber
 			}, function(err, outlet) {
 				if (err) {
-					res.send(err);
+					res.json(jsonResponse(false, null, err));
 				}
-				res.json(outlet.outletCode);
+				res.json(jsonResponse(true, jsonRequest.outletCode,
+						"Outlet updated Successfully"));
 			});
 		} else {
 			var outlet = new Outlet();
 			outlet.outletName = jsonRequest.outletName;
-			outlet.outletCode = jsonRequest.outletCode;
+			outlet.outletCode = generateUUID();
 			outlet.aliasName = jsonRequest.aliasName;
-			outlet.addressLine1 = jsonRequest.addressLine1;
-			outlet.addressLine2 = jsonRequest.addressLine2;
+			outlet.addrLine1 = jsonRequest.addrLine1;
+			outlet.addrLine2 = jsonRequest.addrLine2;
 			outlet.pinCode = jsonRequest.pinCode;
+			outlet.email = jsonRequest.email;
 			outlet.workPhone = jsonRequest.workPhone;
 			outlet.cellNumber = jsonRequest.cellNumber;
 			outlet.outletTypeCode = jsonRequest.outletTypeCode;
@@ -40,7 +67,7 @@ module.exports = function(app, appEnv) {
 					res.json({
 						success : true,
 						data : outlet.outletCode,
-						msg : 'Outlet created'
+						msg : 'Outlet registered successfully'
 					});
 				}
 			});

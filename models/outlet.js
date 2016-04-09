@@ -4,13 +4,13 @@ var Schema = mongoose.Schema;
 var Outlets = new Schema({
 	outletName : String,
 	outletCode : String,
+	outletType : String,
 	aliasName : String,
-	addressLine1 : String,
-	addressLine2 : String,
+	addrLine1 : String,
+	addrLine2 : String,
 	pinCode : String,
 	email : String,
 	workPhone : String,
 	cellNumber : String,
-	outletTypeCode : String
 });
 module.exports = mongoose.model('outlets', Outlets);

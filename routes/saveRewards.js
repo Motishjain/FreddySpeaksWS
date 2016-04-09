@@ -12,9 +12,10 @@ module.exports = function(app, appEnv) {
 		var jsonRequest = req.body;
 		if (jsonRequest.outletCode) {
 			OutletToRewards.findOneAndUpdate({
-				'outletCode' : jsonRequest.outletCode
+				'outletCode' : jsonRequest.outletCode,
+				'rewardCategory' : jsonRequest.rewardCategory
 			}, {
-				'categoryRewards' : jsonRequest.rewardsMap
+				'rewardIdList' : jsonRequest.rewardIdList
 			}, {
 				upsert : true
 			}, function(err, outletToRewards) {
