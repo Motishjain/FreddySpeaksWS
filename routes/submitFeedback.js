@@ -10,9 +10,6 @@ var jsonResponseObject = function(success, data, msg) {
 	jsonObject.data = data;
 	jsonObject.msg = msg;
 	return jsonObject;
-
-var jsonResponse = function(success, data, msg) {
-	return '{"success":' + success + ',"data":' + data + ',"msg":' + msg + '}';
 };
 
 module.exports = function(app, appEnv) {
