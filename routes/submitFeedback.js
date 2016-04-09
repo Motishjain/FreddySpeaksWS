@@ -1,6 +1,3 @@
-/*
- * GET home page.
- */
 var express = require('express');
 var mongoose = require('mongoose');
 var models = require('../models/feedback');
@@ -10,10 +7,9 @@ var outletFeedback;
 
 
 module.exports = function(app, appEnv) {
-	var router = express.Router();
-
-	router.route("/submitFeedback").post(function(req, res) {
-		var jsonRequest = req.body;
+	
+	app.post("/submitFeedback",function(req, res) {
+		var jsonRequest = JSON.parse(req.body);
 		if (jsonRequest.outletCode) {
 			OutletFeedback.find({
 				'outletCode' : jsonRequest.outletCode

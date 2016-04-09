@@ -7,9 +7,8 @@ var outletFeedbackList;
 
 
 module.exports = function(app, appEnv) {
-	var router = express.Router();
-
-	router.route("/fetchFeedback").get(function(req, res) {
+	
+	app.get("/fetchFeedback",function(req, res) {
 		var fromDate = req.params.fromDate;
 		var toDate = req.params.toDate;
 		var outletCode = req.params.outletCode;

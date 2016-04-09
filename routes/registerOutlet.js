@@ -6,10 +6,9 @@ var mongoose = require('mongoose');
 var Outlet = require('../models/outlet');
 
 module.exports = function(app, appEnv) {
-	var router = express.Router();
 
-	router.route("/registerOutlet").get(function(req, res) {
-		var jsonRequest = req.body;
+	app.post("/registerOutlet", function(req, res) {	
+		var jsonRequest = JSON.parse(req.body);
 		if (jsonRequest.outletCode) {
 			Outlet.find({
 				'outletCode' : req.outletCode
