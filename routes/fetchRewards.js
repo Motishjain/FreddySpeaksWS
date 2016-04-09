@@ -3,9 +3,10 @@ var mongoose = require('mongoose');
 var Rewards = require('../models/reward');
 
 module.exports = function(app) {
-	app.get("/fetchRewards",function(req, res) {
+	app.get("/fetchRewards/:outletType",function(req, res,next) {
+		var outletType = req.params.outletType;
 		Rewards.find({
-			'outletType' : 'RET'
+			'outletType' : outletType
 		}, function(err, rewards) {
 			if (err) {
 				res.send(err);

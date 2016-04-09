@@ -22,10 +22,10 @@ module.exports = function(app, appEnv) {
 					res.send(err);
 				}
 				outletFeedbackList = outletFeedback.feedbackList;
+				res.json(outletFeedbackList);
 			});	
 		}
-		
-		res.json(outletFeedbackList);
+			
 		
 	});
 };
