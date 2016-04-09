@@ -4,8 +4,12 @@ var models = require('../models/outletFeedback');
 var OutletFeedback = models.OutletFeedback;
 var Feedback = models.Feedback;
 
-var jsonResponse = function(success, data, msg) {
-	return '{success:' + success + ',data:' + data + ',msg:' + msg + '}';
+var jsonResponseObject = function(success, data, msg) {
+	var jsonObject = {};
+	jsonObject.success = success;
+	jsonObject.data = data;
+	jsonObject.msg = msg;
+	return jsonObject;
 };
 
 module.exports = function(app, appEnv) {
@@ -27,13 +31,13 @@ module.exports = function(app, appEnv) {
 				'outletCode' : jsonRequest.outletCode
 			}, function(err, outletFeedback) {
 				if (err) {
-					res.json(jsonResponse(false, null, err));
+					res.json(jsonResponseObject(false, null, err));
 				}				
 				if(outletFeedback) {		
 					outletFeedback.feedbackList.push(feedback);
 					outletFeedback.updatedDate = new Date();
 					outletFeedback.save();
-					res.json(jsonResponse(true, jsonRequest.outletCode,
+					res.json(jsonResponseObject(true, jsonRequest.outletCode,
 					"Feedback saved Successfully"));
 				}
 				else {
@@ -43,7 +47,7 @@ module.exports = function(app, appEnv) {
 					outletFeedback.feedbackList.push(feedback);
 					outletFeedback.updatedDate = new Date();
 					outletFeedback.save();
-					res.json(jsonResponse(true, jsonRequest.outletCode,
+					res.json(jsonResponseObject(true, jsonRequest.outletCode,
 					"Feedback saved Successfully"));
 				}
 			});	

@@ -2,8 +2,12 @@ var express = require('express');
 var mongoose = require('mongoose');
 var OutletToRewards = require('../models/outletToRewards');
 
-var jsonResponse = function(success, data, msg) {
-	return '{success:' + success + ',data:' + data + ',msg:' + msg + '}';
+var jsonResponseObject = function(success, data, msg) {
+	var jsonObject = {};
+	jsonObject.success = success;
+	jsonObject.data = data;
+	jsonObject.msg = msg;
+	return jsonObject;
 };
 
 module.exports = function(app, appEnv) {
@@ -20,9 +24,9 @@ module.exports = function(app, appEnv) {
 				upsert : true
 			}, function(err, outletToRewards) {
 				if (err) {
-					res.json(jsonResponse(false, null, err));
+					res.json(jsonResponseObject(false, null, err));
 				}
-				res.json(jsonResponse(true, jsonRequest.outletCode,
+				res.json(jsonResponseObject(true, jsonRequest.outletCode,
 						"Rewards saved Successfully"));
 			});
 		}

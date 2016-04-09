@@ -17,8 +17,12 @@ function generateUUID() {
 	return uuid;
 }
 
-var jsonResponse = function(success, data, msg) {
-	return '{success:' + success + ',data:' + data + ',msg:' + msg + '}';
+var jsonResponseObject = function(success, data, msg) {
+	var jsonObject = {};
+	jsonObject.success = success;
+	jsonObject.data = data;
+	jsonObject.msg = msg;
+	return jsonObject;
 };
 
 module.exports = function(app, appEnv) {
@@ -39,9 +43,9 @@ module.exports = function(app, appEnv) {
 				'cellNumber' : jsonRequest.cellNumber
 			}, function(err, outlet) {
 				if (err) {
-					res.json(jsonResponse(false, null, err));
+					res.json(jsonResponseObject(false, null, err));
 				}
-				res.json(jsonResponse(true, jsonRequest.outletCode,
+				res.json(jsonResponseObject(true, jsonRequest.outletCode,
 						"Outlet updated Successfully"));
 			});
 		} else {
@@ -58,9 +62,9 @@ module.exports = function(app, appEnv) {
 			outlet.outletTypeCode = jsonRequest.outletTypeCode;
 			outlet.save(function(err) {
 				if (err) {
-					res.json(jsonResponse(false, null, err));
+					res.json(jsonResponseObject(false, null, err));
 				} else {
-					res.json(jsonResponse(true, jsonRequest.outletCode,
+					res.json(jsonResponseObject(true, jsonRequest.outletCode,
 					"Outlet registered Successfully"));
 				}
 			});
