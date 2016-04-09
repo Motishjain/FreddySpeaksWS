@@ -9,9 +9,6 @@ app = express();
 
 mongoose.connect('mongodb://freddyuser:missionpossible@ds019708.mlab.com:19708/rateus');
 
-
-app.set('port', process.env.PORT || 3000);
-
 //configure app to use bodyParser()
 //this will let us get the data from a POST
 app.use(bodyParser.urlencoded({
@@ -19,7 +16,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080; // set our port
+var port = process.env.PORT || 80; // set our port
 
 //ROUTES FOR OUR API
 //=============================================================================
@@ -37,6 +34,7 @@ router.use(function(req, res, next) {
 //REGISTER OUR ROUTES -------------------------------
 var routes = require('./routes')(app);
 
+app.use("/", express.static("./public/"));
 
 //START THE SERVER
 //=============================================================================
