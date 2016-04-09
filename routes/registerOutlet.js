@@ -1,7 +1,3 @@
-/*
- * GET home page.
- */
-
 var express = require('express');
 var mongoose = require('mongoose');
 var Outlet = require('../models/outlet');
@@ -64,8 +60,8 @@ module.exports = function(app, appEnv) {
 				if (err) {
 					res.json(jsonResponseObject(false, null, err));
 				} else {
-					res.json(jsonResponseObject(true, jsonRequest.outletCode,
-					"Outlet registered Successfully"));
+					res.json(jsonResponseObject(true, outlet.outletCode,
+							"Outlet registered Successfully"));
 				}
 			});
 		}
