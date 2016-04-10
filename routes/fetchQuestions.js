@@ -5,8 +5,9 @@ var Questions = require('../models/question');
 module.exports = function(app,appEnv) {
 	
 	app.get("/fetchQuestions/:outletType",function(req, res) {
+		var outletType = req.params.outletType;
 		Questions.find({
-			'outletType' : 'RET'
+			'outletType' : outletType
 		}, function(err, questions) {
 			if (err) {
 				res.send(err);

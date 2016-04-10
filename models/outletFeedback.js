@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var Rating = new Schema({ questionId: String, selectedOptionIndex: String }, { noId: true });
+
 var Feedback = new Schema({
 	userName : String,
 	userPhoneNumber : String,
@@ -8,7 +10,7 @@ var Feedback = new Schema({
 	billAmount : String,
 	rewardCategory : String,
 	rewardId : String,
-	ratings : String,
+	ratings: [Rating],
 	createdDate : Date
 });
 
@@ -21,3 +23,4 @@ var OutletFeedback = new Schema({
 
 exports.OutletFeedback = mongoose.model('outletFeedbacks', OutletFeedback);
 exports.Feedback = mongoose.model('feedback', Feedback);
+exports.Rating = mongoose.model('rating', Rating);

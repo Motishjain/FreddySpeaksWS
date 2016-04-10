@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var models = require('../models/outletFeedback');
 var OutletFeedback = models.OutletFeedback;
 var Feedback = models.Feedback;
+var Rating = models.Rating;
 
 var jsonResponseObject = function(success, data, msg) {
 	var jsonObject = {};
@@ -13,8 +14,8 @@ var jsonResponseObject = function(success, data, msg) {
 };
 
 module.exports = function(app, appEnv) {
-	
-	app.post("/submitFeedback",function(req, res) {
+
+	app.post("/submitFeedback", function(req, res) {
 		var jsonRequest = req.body;
 		var feedback = new Feedback();
 		feedback.userName = jsonRequest.userName;
@@ -23,24 +24,33 @@ module.exports = function(app, appEnv) {
 		feedback.billAmount = jsonRequest.billAmount;
 		feedback.rewardCategory = jsonRequest.rewardCategory;
 		feedback.rewardId = jsonRequest.rewardId;
-		feedback.ratingsMap = jsonRequest.ratingsMap;
 		feedback.createdDate = new Date();
-	
-		if (jsonRequest.outletCode) {				
+
+		var ratingsMap = jsonRequest.ratingsMap;
+
+		for ( var key in ratingsMap) {
+			if (ratingsMap.hasOwnProperty(key)) {
+				var rating = new Rating();
+				rating.questionId = key;
+				rating.selectedOptionIndex = ratingsMap[key];
+				feedback.ratings.push(rating);
+			}
+		}
+
+		if (jsonRequest.outletCode) {
 			OutletFeedback.findOne({
 				'outletCode' : jsonRequest.outletCode
 			}, function(err, outletFeedback) {
 				if (err) {
 					res.json(jsonResponseObject(false, null, err));
-				}				
-				if(outletFeedback) {		
+				}
+				if (outletFeedback) {
 					outletFeedback.feedbackList.push(feedback);
 					outletFeedback.updatedDate = new Date();
 					outletFeedback.save();
 					res.json(jsonResponseObject(true, jsonRequest.outletCode,
-					"Feedback saved Successfully"));
-				}
-				else {
+							"Feedback saved Successfully"));
+				} else {
 					outletFeedback = new OutletFeedback();
 					outletFeedback.outletCode = jsonRequest.outletCode;
 					outletFeedback.createdDate = new Date();
@@ -48,20 +58,10 @@ module.exports = function(app, appEnv) {
 					outletFeedback.updatedDate = new Date();
 					outletFeedback.save();
 					res.json(jsonResponseObject(true, jsonRequest.outletCode,
-					"Feedback saved Successfully"));
+							"Feedback saved Successfully"));
 				}
-			});	
+			});
 		}
-		
-		
 
 	});
 };
-
-
-/*
-Object.keys(o).forEach(function(key) {
-var val = o[key];
-logic();
-});
-*/
