@@ -8,13 +8,14 @@ var outletFeedbackList;
 
 module.exports = function(app, appEnv) {
 	
-	app.get("/fetchFeedback",function(req, res) {
-		var fromDate = req.params.fromDate;
-		var toDate = req.params.toDate;
+	app.get("/fetchFeedback/:outletCode/:fromDate/:toDate",function(req, res) {
+		
 		var outletCode = req.params.outletCode;
+		var fromDate = new Date(req.params.fromDate);
+		var toDate = new Date(req.params.toDate);
 		
 		if (outletCode) {
-			OutletFeedback.find({
+			OutletFeedback.findOne({
 				'outletCode' : outletCode,
 				'feedbackList.createdDate' : {"$gte": fromDate, "$lt": toDate}
 			}, function(err, outletFeedback) {
