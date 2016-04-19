@@ -39,7 +39,6 @@ module.exports = function(app, appEnv) {
 				res.json(result);
 			});
 		}
-
 	});
 };
 
