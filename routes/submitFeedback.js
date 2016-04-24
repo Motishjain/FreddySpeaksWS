@@ -24,7 +24,7 @@ module.exports = function(app, appEnv) {
 		feedback.billAmount = jsonRequest.billAmount;
 		feedback.rewardCategory = jsonRequest.rewardCategory;
 		feedback.rewardId = jsonRequest.rewardId;
-		feedback.createdDate = new Date();
+		feedback.createdDate = new Date(jsonRequest.createdDate);
 
 		var ratingsMap = jsonRequest.ratingsMap;
 
