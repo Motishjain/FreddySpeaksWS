@@ -31,6 +31,15 @@ module.exports = function(app, appEnv) {
 						'$lte' : toDate
 					}
 				}
+			}, {
+				$project : {
+					userPhoneNumber : "$feedbackList.userPhoneNumber",
+					billNumber : "$feedbackList.billNumber",
+					billAmount : "$feedbackList.billAmount",
+					ratings : "$feedbackList.ratings",
+					createdDate : "$feedbackList.createdDate",
+					_id : 0
+				}
 			} ], function(err, result) {
 				if (err) {
 					console.log(err);
