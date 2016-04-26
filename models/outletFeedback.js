@@ -4,9 +4,8 @@ var Schema = mongoose.Schema;
 var Rating = new Schema({ questionId: String, selectedOptionIndex: String }, { noId: true });
 
 var Feedback = new Schema({
-	userName : String,
 	userPhoneNumber : String,
-	billNumber : String,
+	billNumber : Number,
 	billAmount : String,
 	rewardCategory : String,
 	rewardId : String,
