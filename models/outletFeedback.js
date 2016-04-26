@@ -5,8 +5,8 @@ var Rating = new Schema({ questionId: String, selectedOptionIndex: String }, { n
 
 var Feedback = new Schema({
 	userPhoneNumber : String,
-	billNumber : Number,
-	billAmount : String,
+	billNumber : String,
+	billAmount : Number,
 	rewardCategory : String,
 	rewardId : String,
 	ratings: [Rating],
