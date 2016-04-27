@@ -10,7 +10,7 @@ module.exports = function(app, appEnv) {
 	app.get("/fetchFeedback/:outletCode/:fromDate/:toDate", function(req, res) {
 
 		//var outletCode = req.params.outletCode;
-		var outletCode = 'c8b5fdc8-b7c0-4c57-b1c6-0c3578cb092a';
+		var outletCode = req.params.outletCode;
 		var fromDate = new Date(req.params.fromDate);
 		var toDate = new Date(req.params.toDate);
 
