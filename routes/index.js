@@ -6,4 +6,5 @@ module.exports = function(app,appEnv) {
 	require('./registerOutlet')(app);
 	require('./saveRewards')(app);
 	require('./submitFeedback')(app);
+	require('./extendSubscription')(app);
 };

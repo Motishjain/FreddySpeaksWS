@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var Outlets = new Schema({
 	outletName : String,
 	outletCode : String,
-	outletType : String,
+	outletTypeCode : String,
 	aliasName : String,
 	addrLine1 : String,
 	addrLine2 : String,
@@ -12,5 +12,7 @@ var Outlets = new Schema({
 	email : String,
 	workPhone : String,
 	cellNumber : String,
+	createdDate: Date,
+	updateDate: Date
 });
 module.exports = mongoose.model('outlets', Outlets);
