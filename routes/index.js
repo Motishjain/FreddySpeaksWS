@@ -7,5 +7,6 @@ module.exports = function(app,appEnv) {
 	require('./saveRewards')(app);
 	require('./submitFeedback')(app);
 	require('./extendSubscription')(app);
+	require('./fetchSubscription')(app);
 	require('./saveGCMToken')(app);
 };
