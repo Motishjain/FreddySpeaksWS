@@ -42,8 +42,7 @@ module.exports = function(app, appEnv) {
 			Outlet.findOneAndUpdate({
 				'outletCode' : jsonRequest.outletCode
 			}, {
-				'outletName' : jsonRequest.outletName,
-				'aliasName' : jsonRequest.aliasName,
+				'outletName' : jsonRequest.outletName,				
 				'addrLine1' : jsonRequest.addrLine1,
 				'addrLine2' : jsonRequest.addrLine2,
 				'pinCode' : jsonRequest.pinCode,
@@ -69,8 +68,7 @@ module.exports = function(app, appEnv) {
 			var generatedCode=generateUUID();
 			console.log(generatedCode);
 			outlet.outletName = jsonRequest.outletName;
-			outlet.outletCode = generatedCode;
-			outlet.aliasName = jsonRequest.aliasName;
+			outlet.outletCode = generatedCode;			
 			outlet.addrLine1 = jsonRequest.addrLine1;
 			outlet.addrLine2 = jsonRequest.addrLine2;
 			outlet.pinCode = jsonRequest.pinCode;
