@@ -91,7 +91,7 @@ module.exports = function(app, appEnv) {
 					var outletSubscribe=new outletSubscription();
 					outletSubscribe.outletCode=generatedCode;
 					outletSubscribe.expiryDate=calculateExpiry(jsonRequest.createdDate);
-					outletSubscribe.activationStatus="ACT";
+					outletSubscribe.activationStatus="TR";
 					outletSubscribe.save(function(err) {
 						if (err) {
 						    console.log('Outlet registered successfully but there is error inserting the subscription details');
