@@ -1,0 +1,181 @@
+ 
+<div  class="col-md-12" ng-controller="rewardsCtrl as up">
+  <a href='#/questions'>Questions</a>
+  <div class="col-md-12 no-padd content-left-table">
+      <h4 class="text-title-mb text-center">Rewards</h4>         
+      <button class="btn btn-info" title="add new rewards" ng-click="up.add()"><span class="glyphicon glyphicon-plus"></span> ADD</button>
+      <div class="col-lg-3 no-padding pull-right">
+            <input type="text" class="form-control" placeholder="Search..." ng-model="searchText">  
+      </div>                      
+      <table class="table table-bordered tabl-list">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Cost</th>
+            <th>Level</th>
+            <th>Category</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr ng-repeat="reward in up.rewardsdata | filter:{name: searchText}">
+            <td><img width ="50px" height="70px" ng-src="./dist/uploads/{{reward.image || 'no-image.png' }}" ></td>
+            <td>{{reward.name}}</td>
+            <td>{{reward.cost}}</td>  
+            <td>{{reward.level}}</td>
+            <td>{{reward.type}}</td>
+           <td>
+			<i class="fa fa-pencil fa-2x" aria-hidden="true" ng-click='up.edit($index, reward)'></i>		
+            </td>
+			<td>
+			<i class='fa fa-trash-o fa-2x' aria-hidden="true" ng-click="up.remove($index, reward._id)"></i>			
+			</td>   
+          </tr>
+         
+        </tbody>
+      </table>
+  </div>
+  
+	<!-- Edit modal -->
+
+ 
+
+
+   <div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5><span class="glyphicon glyphicon-edit"></span> Edit  Reward</h5>
+        </div>
+        <div class="modal-body" >
+              <div>
+        <form   name="up.upload_form">
+          <div class="form-group">
+             <label>Name</label>
+              <input type="text" class="form-control" name="id" ng-model="up.edit_reward.name" required>
+          </div>
+          <div class="form-group">
+             <label>Cost</label>
+              <input type="text" class="form-control" name="short_name" ng-model="up.edit_reward.cost" required>
+          </div>
+          <div class="form-group">
+             <label>Lavel</label>
+              <select class="form-control" ng-model='up.edit_reward.level'>
+                <option value="">Select Level</option>
+                <option value="l">Lavel 1</option>
+                <option value="l2">Lavel 2</option>
+                <option value="l3">Lavel 3</option>
+              </select>
+          </div>
+          <div class="form-group">
+             <label>Category</label>
+              <select class="form-control" ng-model='up.edit_reward.type'>
+                <option value="">Select Category</option>
+                <option value="c">Category 1</option>
+                <option value="c2">Category 2</option>
+                <option value="c3">Category 2</option>
+              </select>
+          </div>
+          
+          <div class="form-group clearfix">
+            <div class="col-sm-6 no-padding">
+              <span class="btn btn-info btn-file">
+                <i class="icon-plus"> </i><span>Choose picture...</span>
+               <input  type="file" ngf-select ng-model="up.editfile" name="editfile" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB"/>
+               </span>
+             
+              <i ng-show="up.upload_form.editfile.$error.required">*required</i><br>
+              <i ng-show="up.upload_form.editfile.$error.maxSize">File too large 
+                    {{up.editfile.size / 1000000|number:1}}MB: max 20M</i>
+            </div>
+            <div class="col-sm-6 no-padding img-thumb" >               
+              <img class='pull-right' style="height:100px;" ng-show="!!up.editfile" ngf-thumbnail="up.editfile || up.editImage"/>      
+              </div> 
+            </div>      
+          </form>
+        </div>
+            </div>
+        <div class="modal-footer">
+             <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="up.update(up.edit_reward._id)">Update</button>
+       </div>
+      
+    </div>
+  </div>
+  </div>
+<!-- End Edit modal -->
+
+<!-- Add modal -->
+
+  <div class="modal fade" id="addModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5><span class="glyphicon glyphicon-edit"></span> Add new Rewards</h5>
+        </div>
+        <div class="modal-body" >
+              <div>
+        <form   name="up.upload_form">
+          <div class="form-group">
+             <label>Name</label>
+              <input type="text" class="form-control" name="id" ng-model="up.rewards.name" required>
+          </div>
+          <div class="form-group">
+             <label>Cost</label>
+              <input type="text" class="form-control" name="short_name" ng-model="up.rewards.cost" required>
+          </div>
+          <div class="form-group">
+             <label>Lavel</label>
+              <select class="form-control" ng-model='up.rewards.level'>
+                <option value="">Select Level</option>
+                <option value="l">Lavel 1</option>
+                <option value="l2">Lavel 2</option>
+                <option value="l3">Lavel 3</option>
+              </select>
+          </div>
+          <div class="form-group">
+             <label>Category</label>
+              <select class="form-control" ng-model='up.rewards.type'>
+                <option value="">Select Category</option>
+                <option value="c">Category 1</option>
+                <option value="c2">Category 2</option>
+                <option value="c3">Category 2</option>
+              </select>
+          </div>
+          
+          <div class="form-group clearfix">
+            <div class="col-sm-6 no-padding">
+              <span class="btn btn-info btn-file">
+                <i class="icon-plus"> </i><span>Choose picture...</span>
+               <input  type="file" ngf-select ng-model="up.file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB"/>
+               </span>
+             
+              <i ng-show="up.upload_form.file.$error.required">*required</i><br>
+              <i ng-show="up.upload_form.file.$error.maxSize">File too large 
+                    {{up.file.size / 1000000|number:1}}MB: max 20M</i>
+            </div>
+            <div class="col-sm-6 no-padding img-thumb" >               
+              <img class='pull-right' style="height:100px;" ng-show="!!up.file" ngf-thumbnail="up.file || './dist/images/upload-icon.png'"/>      
+              </div> 
+            </div>      
+          </form>
+        </div>
+            </div>
+        <div class="modal-footer">
+ <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="up.submit()">ADD</button>        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- End  add modal -->
+</div>  

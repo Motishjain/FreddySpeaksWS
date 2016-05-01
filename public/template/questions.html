@@ -1,0 +1,209 @@
+ 
+<div  class="col-md-12" ng-controller="questionsCtrl as up">
+  <a href='#/rewards'>Rewards</a>
+  <div class="col-md-12 no-padd content-left-table">
+      <h4 class="text-title-mb text-center">Questions</h4>         
+      <button class="btn btn-info" title="add new rewards" ng-click="up.add()"><span class="glyphicon glyphicon-plus"></span> ADD</button>
+      <div class="col-lg-3 no-padding pull-right">
+            <input type="text" class="form-control" placeholder="Search..." ng-model="searchText">  
+      </div>                      
+      <table class="table table-bordered tabl-list">
+        <thead>
+          <tr>         
+          	<th>Name</th>
+            <th>Rating Options</th>
+            <th>Type</th>          
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr ng-repeat="question in up.questionsdata | filter:{name: searchText}">
+            <td>{{question.name}}</td>
+            <td><p ng-repeat='value in question.ratingValues track by $index'>
+              Options {{$index+1}}:  Text: {{value}} &nbsp; &nbsp; &nbsp; Emoticon id: {{question.emoticonIds[$index]}}</p></td>  
+            <td>{{question.type}}</td>
+            <td>
+			<i class="fa fa-pencil fa-2x" aria-hidden="true" ng-click='up.edit($index, question)'></i>		
+            </td>
+			<td>
+			<i class='fa fa-trash-o fa-2x' aria-hidden="true" ng-click="up.remove($index, question._id)"></i>			
+			</td>  
+          </tr>
+         
+        </tbody>
+      </table>
+  </div>
+  
+	<!-- Edit modal -->
+
+ 
+
+
+   <div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5><span class="glyphicon glyphicon-edit"></span> Edit  Questions</h5>
+        </div>
+     <div class="modal-body" >
+              <div>
+        <form   name="up.upload_form">
+          <div class="form-group">
+             <label>Name</label>
+              <input type="text" class="form-control" name="id" ng-model="up.edit_question.name" required>
+          </div>
+          <div class="form-group">
+             <label>Rating Number</label>
+              <select class="form-control" ng-change='up.eSetValue()' ng-model='up.edit_ratingNumbers'>
+                <option value="">Select Rating Number</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label class="col-md-12 no-padding">Rating Options</label>
+      
+       <div ng-repeat="value in up.edit_numbers track by $index" class="col-md-12 no-padding option-cont"> 
+        <div class="col-md-2 no-padding">
+          <label>Option {{$index + 1}}:</label>
+         </div>   
+         <div class="col-md-6">
+           <div class="col-md-2 no-padding">
+              <label>Text:</label>
+         </div>
+          <div class="col-md-10 no-padding">
+              <input  class="form-control " type="text" ng-model='value.val'>
+         </div>  
+          </div>
+      
+          <div class="col-md-4">    
+               <div class="col-md-7 no-padding">
+              <label>Emoticon id:</label>
+         </div>
+          <div class="col-md-5 no-padding">
+               <select class="form-control" ng-model='value.emid'>
+            <option value=""></option>
+            <option ng-repeat="operator in up.operators" value="{{operator}}">
+              {{operator}}
+            </option>
+            </select>
+         </div>
+            
+          </div>
+        </div>
+		</div>
+          <div class="form-group">
+             <label>Type</label>
+              <select class="form-control" ng-model='up.edit_question.type'>
+                <option value="">Select Type</option>
+                 <option ng-repeat="type in up.types" value="{{type.value}}">
+           			{{type.name}}
+       			</option>
+              </select>
+          </div>  
+           
+          </form>
+        </div>
+            </div>
+        <div class="modal-footer">
+             <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="up.update(up.edit_question._id)">Update</button>
+       </div>
+      
+    </div>
+  </div>
+  </div>
+<!-- End Edit modal -->
+
+<!-- Add modal -->
+
+  <div class="modal fade" id="addModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5><span class="glyphicon glyphicon-edit"></span> Add new Questions</h5>
+        </div>
+        <div class="modal-body" >
+              <div>
+        <form   name="up.upload_form">
+          <div class="form-group">
+             <label>Name</label>
+              <input type="text" class="form-control" name="id" ng-model="up.questions.name" required>
+          </div>
+          <div class="form-group">
+             <label>Rating Number</label>
+              <select class="form-control" ng-change='up.setValue()' ng-model='up.ratingNumbers'>
+                <option value="">Select Rating Number</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+          </div>
+          <div class="form-group">
+             <label class="col-md-12 no-padding">Rating Options</label>
+			
+			 <div ng-repeat="value in up.numbers track by $index" class="col-md-12 no-padding option-cont">	
+				<div class="col-md-2 no-padding">
+          <label>Option {{$index + 1}}:</label>
+         </div>   
+				 <div class="col-md-6">
+				   <div class="col-md-2 no-padding">
+              <label>Text:</label>
+         </div>
+          <div class="col-md-10 no-padding">
+              <input  class="form-control " type="text" ng-model='value.val'>
+         </div>  
+				  </div>
+			
+				  <div class="col-md-4">		
+							 <div class="col-md-7 no-padding">
+              <label>Emoticon id:</label>
+         </div>
+          <div class="col-md-5 no-padding">
+               <select class="form-control" ng-model='value.emid'>
+            <option value=""></option>
+            <option ng-repeat="operator in up.operators" value="{{operator}}">
+              {{operator}}
+            </option>
+            </select>
+         </div>
+					  
+				  </div>
+			  </div>
+          </div>
+          <div class="form-group">
+             <label>Type</label>
+              <select class="form-control" ng-model='up.questions.type'>
+                <option value="">Select Type</option>
+                 <option ng-repeat="type in up.types" value="{{type.value}}">
+           			{{type.name}}
+       			</option>
+              </select>
+          </div>  
+           
+          </form>
+        </div>
+            </div>
+        <div class="modal-footer">
+ 			<button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="up.submit()">ADD</button>        
+ 		</div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- End  add modal -->
+</div>  
