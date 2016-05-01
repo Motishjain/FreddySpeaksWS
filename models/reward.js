@@ -8,7 +8,7 @@ var Rewards = new Schema({
 	cost : String,
 	level : String,
 	type : String,
-	isDirty : Boolean
+	//isDirty : { type: Boolean, default:true }
 });
 
 module.exports = mongoose.model('rewards', Rewards);

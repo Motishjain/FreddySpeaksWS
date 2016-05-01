@@ -8,7 +8,7 @@ var Questions = new Schema({
 	questionInputType: String,
 	ratingValues : Array,
 	emoticonIds : Array,
-	isDirty : Boolean
+	//isDirty : { type: Boolean, default: "true" }
 });
 
 module.exports = mongoose.model('questions', Questions);
