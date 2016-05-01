@@ -17,4 +17,6 @@ module.exports = function(app,appEnv) {
 	require('./dataQuestions')(app);
 	require('./removeQuestions')(app);
 	require('./editQuestions')(app);
+	require('./dataQuestionTypeRef')(app);
+	require('./dataQuestionInputType')(app);
 };

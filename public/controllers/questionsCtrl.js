@@ -3,8 +3,20 @@ angular.module('myApp')
   ['$scope','$http','$window','$location', function ($scope, $http, $window, $location) {
   	var vm = this;
 
+// get all QuestionTypeRef data
+  $http.post('/dataQuestionTypeRef').success(function(data, status, headers, config) {
+     vm.questionTypeRef = data;
+      console.log(data);
 
- 	// get all rewards data
+    });
+  // get all QuestionInputType data
+  $http.post('/dataQuestionInputType').success(function(data, status, headers, config) {
+     vm.questionInputType = data;
+      console.log(data);
+
+    });
+
+ 	// get all Questions data
  	$http.post('/dataQuestions').success(function(data, status, headers, config) {
       vm.questionsdata = data;
       console.log(data);
@@ -26,7 +38,10 @@ angular.module('myApp')
       $("#addModal").modal();
     }
     vm.numbers = [];
-   
+    vm.questions={
+      ratingValues: [],
+      emoticonIds:[]
+    }  
     vm.setValue = function(){
      vm.numbers = [];
       var count = vm.ratingNumbers;
@@ -36,12 +51,10 @@ angular.module('myApp')
     }
 
  
-    // add new reward
+    // add new Questions
+    
     vm.submit = function(){ 
-    vm.questions={
-      ratingValues: [],
-      emoticonIds:[]
-     }  
+    
 		vm.numbers.forEach(function(v,k){
       console.log(vm.questions.ratingValues);
       console.log(vm.questions.emoticonIds);
@@ -64,7 +77,7 @@ angular.module('myApp')
 	                      timer: 2000,   
 	                      showConfirmButton: false 
 	                    });
-	              vm.questionsdata.push(data.dataObj);   
+	             vm.questionsdata.push(data.dataObj);   
 	             $("#addModal").modal('hide');
 	             vm.questions = {};
                vm.ratingNumbers = '';
@@ -138,7 +151,7 @@ angular.module('myApp')
               $http.post('/removeQuestions', {id: id}).success(function(data, status, headers, config) {
                   swal({   
                       title: "Deleted!",   
-                      text: "Reward has been deleted.",
+                      text: "Questions has been deleted.",
                       type: "success",   
                       timer: 2000,   
                       showConfirmButton: false 
