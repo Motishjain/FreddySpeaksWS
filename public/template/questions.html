@@ -20,14 +20,14 @@
         </thead>
         <tbody >
           <tr ng-repeat="question in up.questionsdata | filter:{name: searchText}">
-            <td>{{question.name}}</td>
+            <td>{{question.questionName}}</td>
             <td>
               <div class="col-md-12 no-padding" ng-repeat='value in question.ratingValues track by $index'>
                 <div  class="col-md-3 no-padding" >Options {{$index+1}}:  Text: {{value}} </div>
                  <div  class="col-md-3 no-padding" > Emoticon id: {{question.emoticonIds[$index]}}</div>
               </div>
             </td>  
-            <td>{{question.type}}</td>
+            <td>{{question.questionType}}</td>
             <td>{{question.questionInputType}}</td>
             <td>
 			<i class="fa fa-pencil fa-2x" aria-hidden="true" ng-click='up.edit($index, question)'></i>		
@@ -61,7 +61,7 @@
         <form   name="up.upload_form">
           <div class="form-group">
              <label>Name</label>
-              <input type="text" class="form-control" name="id" ng-model="up.edit_question.name" required>
+              <input type="text" class="form-control" name="id" ng-model="up.edit_question.questionName" required>
           </div>
           <div class="form-group">
              <label>Rating Number</label>
@@ -108,7 +108,7 @@
 		</div>
           <div class="form-group">
              <label>Type</label>
-              <select class="form-control" ng-model='up.edit_question.type'>
+              <select class="form-control" ng-model='up.edit_question.questionType'>
                 <option value="">Select Type</option>
                   <option ng-repeat="type in up.questionTypeRef" value="{{type.questionTypeKey}}">
                 {{type.questionTypeValue}}
