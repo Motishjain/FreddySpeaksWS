@@ -7,7 +7,7 @@ var Rewards = new Schema({
 	image : String,
 	cost : String,
 	level : String,
-	type : String,
+	type : String
 	//isDirty : { type: Boolean, default:true }
 });
 
