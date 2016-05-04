@@ -6,4 +6,4 @@ var QuestionTypeRef = new Schema({
 	questionTypeValue : String
 });
 
-module.exports = mongoose.model('questiontyperefs', QuestionTypeRef);
+module.exports = mongoose.model('QuestionTypeRef', QuestionTypeRef);
