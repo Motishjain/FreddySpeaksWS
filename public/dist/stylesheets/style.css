@@ -16,12 +16,10 @@ table td{
 	display: table-cell;
     vertical-align: middle !important;
 }
-table td:last-child, table td:nth-last-child(2){
+table td:not(.ratings){
 	text-align: center;
 }
-table th:last-child, table th:nth-last-child(2){
-	text-align: center;
-}
+
 table td i{
 	cursor:pointer
 }

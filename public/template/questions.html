@@ -21,10 +21,10 @@
         <tbody >
           <tr ng-repeat="question in up.questionsdata | filter:{name: searchText}">
             <td>{{question.questionName}}</td>
-            <td>
+            <td class="ratings">
               <div class="col-md-12 no-padding" ng-repeat='value in question.ratingValues track by $index'>
-                <div  class="col-md-3 no-padding" >Options {{$index+1}}:  Text: {{value}} </div>
-                 <div  class="col-md-3 no-padding" > Emoticon id: {{question.emoticonIds[$index]}}</div>
+                <div  class="col-md-5 col-md-offset-2" >Options {{$index+1}}:  Text: {{value}} </div>
+                 <div  class="col-md-4 col-md-offset-1" > Emoticon id: {{question.emoticonIds[$index]}}</div>
               </div>
             </td>  
             <td>{{question.questionType}}</td>
