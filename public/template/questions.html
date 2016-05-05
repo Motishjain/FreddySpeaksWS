@@ -27,8 +27,8 @@
                  <div  class="col-md-4 col-md-offset-1" > Emoticon id: {{question.emoticonIds[$index]}}</div>
               </div>
             </td>  
-            <td>{{question.questionType}}</td>
-            <td>{{question.questionInputType}}</td>
+            <td>{{up.qtype[question.questionType]}}</td>
+            <td>{{up.qitype[question.questionInputType]}}</td>
             <td>
 			<i class="fa fa-pencil fa-2x" aria-hidden="true" ng-click='up.edit($index, question)'></i>		
             </td>

@@ -10,18 +10,27 @@ angular
 						function($scope, $http, $window, $location) {
 							var vm = this;
 
+              vm.qtype = [];
+              vm.qitype = [];
+
 							// get all QuestionTypeRef data
 							$http.post('/dataQuestionTypeRef').success(
 									function(data, status, headers, config) {
 										vm.questionTypeRef = data;
-										console.log(data);
+                    console.log(data);
+										data.forEach(function(v,k){
+                       vm.qtype[v.questionTypeKey] = v.questionTypeValue;
+                    })
 
 									});
 							// get all QuestionInputType data
 							$http.post('/dataQuestionInputType').success(
 									function(data, status, headers, config) {
 										vm.questionInputType = data;
-										console.log(data);
+                    console.log(data);
+  									data.forEach(function(v,k){
+                      vm.qitype[v.questionInputTypeKey] = v.questionInputTypeValue;
+                    })
 
 									});
 
