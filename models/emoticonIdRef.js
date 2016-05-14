@@ -6,4 +6,4 @@ var EmoticonIdRef = new Schema({
 	emotion : String
 });
 
-module.exports = mongoose.model('EmoticonIdRef', EmoticonIdRef);
+module.exports = mongoose.model('EmoticonIdRefs', EmoticonIdRef);

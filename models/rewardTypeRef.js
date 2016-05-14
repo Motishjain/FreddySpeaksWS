@@ -6,4 +6,4 @@ var RewardTypeRef = new Schema({
 	rewardTypeValue : String
 });
 
-module.exports = mongoose.model('RewardTypeRef', RewardTypeRef);
+module.exports = mongoose.model('RewardTypeRefs', RewardTypeRef);
