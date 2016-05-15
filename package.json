@@ -13,6 +13,6 @@
 		"moment":"2.13.0",
 		"multer": "^1.1.0",
 		"node-schedule": "1.1.0",
-		"gcm": "1.0.1"
+		"node-gcm": "0.14.0"
 	}
 }
