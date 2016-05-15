@@ -16,7 +16,7 @@ function updateSubscription(err, outletSubscription) {
 	if(outletSubscription.activationStatus!==Constants.SUBSCRIPTION_EXPIRED) {
 		if(currentDate>expirationDate) {
 			timeDiff = currentDate.getTime() - expirationDate.getTime();
-			daysOverDue = timeDiff / (1000 * 60 * 60 * 24);
+			daysOverDue = parseInt(timeDiff / (1000 * 60 * 60 * 24));
 			if(daysOverDue<7) {
 				newStatus = Constants.SUBSCRIPTION_PENDING;
 			}
@@ -26,7 +26,7 @@ function updateSubscription(err, outletSubscription) {
 		}
 		else {
 			timeDiff = expirationDate.getTime() - currentDate.getTime();
-			daysLeft = timeDiff / (1000 * 60 * 60 * 24);
+			daysLeft = parseInt(timeDiff / (1000 * 60 * 60 * 24));
 		}
 	}
 	if(newStatus) {
@@ -65,6 +65,7 @@ function updateSubscription(err, outletSubscription) {
 				priority: 'high',
 				contentAvailable: true,
 				data: {
+					type : 'Subscription',
 					outletCode: outletSubscription.outletCode,
 					activationStatus: outletSubscription.activationStatus
 				},
