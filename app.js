@@ -33,7 +33,9 @@ router.use(function(req, res, next) {
 var alarms = require('./util/alarms');
 
 var rule = new cron.RecurrenceRule();
-rule.hours = 24;
+rule.dayOfWeek = [0, new cron.Range(0, 6)];
+rule.hour = 10;
+rule.minute = 0;
 cron.scheduleJob(rule, alarms.checkSubscription);
 
 //more routes for our API will happen here
