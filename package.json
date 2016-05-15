@@ -11,6 +11,8 @@
 		"mongoose": "4.1.5",
 		"body-parser": "1.0.1",
 		"moment":"2.13.0",
-		"multer": "^1.1.0"
+		"multer": "^1.1.0",
+		"node-schedule": "1.1.0",
+		"gcm": "1.0.1"
 	}
 }

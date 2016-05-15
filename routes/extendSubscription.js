@@ -1,7 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var outletPayment = require('../models/outletPayments');
-var outletSubscription = require('../models/outletSubscription');
+var OutletPayment = require('../models/outletPayments');
+var OutletSubscription = require('../models/outletSubscription');
 var moment=require('moment');
 
 function renewSubscription(expdate,bymonths){
@@ -27,7 +27,7 @@ module.exports=function(app, appEnv){
 
 	app.post("/extendSubscription",function(req,res){
 		var jsonRequest=req.body;
-		var outletpayment=new outletPayment();
+		var outletpayment=new OutletPayment();
 		outletpayment.outletCode=jsonRequest.outletCode;
 		outletpayment.amount=jsonRequest.amount;
 		outletpayment.subscripedMonths=jsonRequest.months;
@@ -42,7 +42,7 @@ module.exports=function(app, appEnv){
 				}
 			}
 			else {
-				outletSubscription.findOne({'outletCode' : jsonRequest.outletCode}, function(err, val){
+				OutletSubscription.findOne({'outletCode' : jsonRequest.outletCode}, function(err, val){
 					if (err) {
 						console.log('Error Inserting New Data');
 						if (err.name == 'ValidationError') {
@@ -52,7 +52,7 @@ module.exports=function(app, appEnv){
 						}
 					}
 					var eDate=val.expiryDate;
-					outletSubscription.findOneAndUpdate(
+					OutletSubscription.findOneAndUpdate(
 							{
 								'outletCode' : jsonRequest.outletCode,
 							},

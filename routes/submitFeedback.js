@@ -18,7 +18,6 @@ module.exports = function(app, appEnv) {
 	app.post("/submitFeedback", function(req, res) {
 		var jsonRequest = req.body;
 		var feedback = new Feedback();
-		feedback.userName = jsonRequest.userName;
 		feedback.userPhoneNumber = jsonRequest.userPhoneNumber;
 		feedback.billNumber = jsonRequest.billNumber;
 		feedback.billAmount = jsonRequest.billAmount;

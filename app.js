@@ -5,7 +5,8 @@
 var express = require('express'), // call express
 bodyParser = require('body-parser'),
 mongoose = require('mongoose'),
-app = express();
+app = express(),
+cron = require('node-schedule');
 
 mongoose.connect('mongodb://freddyuser:missionpossible@ds019708.mlab.com:19708/rateus');
 
@@ -28,6 +29,12 @@ router.use(function(req, res, next) {
 	console.log('Something is happening.');
 	next(); // make sure we go to the next routes and don't stop here
 });
+
+var alarms = require('./util/alarms');
+
+var rule = new cron.RecurrenceRule();
+rule.seconds = 30;
+cron.scheduleJob(rule, alarms.checkSubscription);
 
 //more routes for our API will happen here
 
