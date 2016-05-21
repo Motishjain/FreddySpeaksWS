@@ -5,6 +5,7 @@ var Questions = new Schema({
 	outletType : String,
 	questionName : String,
 	questionType : String,
+	displayRank : String,
 	questionInputType: String,
 	ratingValues : Array,
 	emoticonIds : Array,
