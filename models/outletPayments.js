@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var outletPayment=new Schema({
 	outletCode : String,
 	amount: Number,
-	subscripedMonths:Number,
+	subscribedMonths:Number,
 	paymentDate:Date
 });
 
