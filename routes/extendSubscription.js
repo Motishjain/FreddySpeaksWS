@@ -30,7 +30,7 @@ module.exports=function(app, appEnv){
 		var outletpayment=new OutletPayment();
 		outletpayment.outletCode=jsonRequest.outletCode;
 		outletpayment.amount=jsonRequest.amount;
-		outletpayment.subscripedMonths=jsonRequest.months;
+		outletpayment.subscribedMonths=jsonRequest.subscribedMonths;
 		outletpayment.paymentDate=jsonRequest.paymentDate;
 		outletpayment.save(function(err){
 			if (err) {
@@ -57,7 +57,7 @@ module.exports=function(app, appEnv){
 								'outletCode' : jsonRequest.outletCode,
 							},
 							{
-								'expiryDate' : renewSubscription(eDate,jsonRequest.months),
+								'expiryDate' : renewSubscription(eDate,jsonRequest.subscribedMonths),
 								'activationStatus' : "ACT"
 							}, function(err, outletSubscription) {
 								if (err) {
