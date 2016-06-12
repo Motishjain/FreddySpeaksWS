@@ -9,9 +9,9 @@ function renewSubscription(expdate,bymonths){
 	case '3':
 		return moment(expdate, 'MMMM Do YYYY').add(3,'months').format('MMMM Do YYYY');
 	case '6':
-		return moment(expdate).add(6,'months').format('MMMM Do YYYY');
+		return moment(expdate, 'MMMM Do YYYY').add(6,'months').format('MMMM Do YYYY');
 	case '12':
-		return moment(expdate).add(1,'year').format('MMMM Do YYYY');
+		return moment(expdate, 'MMMM Do YYYY').add(1,'year').format('MMMM Do YYYY');
 	}
 }
 var jsonResponseObject=function(success, data, msg){
