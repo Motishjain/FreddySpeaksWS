@@ -17,7 +17,7 @@ function generateUUID() {
 
 function calculateExpiry(cdate) {
 	
-	return moment(cdate, 'MMMM Do YYYY').add(1,'months').format('MMMM Do YYYY');
+	return moment(cdate).add(1,'months').format('MMMM Do YYYY');
 }
 
 var jsonResponseObject = function(success, data, msg) {

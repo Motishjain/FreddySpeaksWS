@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var outletSubscriptions=new Schema({
 	outletCode : String,
-	expiryDate: Date,
+	expiryDate: String,
 	activationStatus:String
 });
 
