@@ -29,7 +29,7 @@ module.exports=function(app, appEnv){
 		var outletpayment=new OutletPayment();
 		outletpayment.outletCode=jsonRequest.outletCode;
 		outletpayment.amount=jsonRequest.amount;
-		outletpayment.subscripedMonths=jsonRequest.subscribedMonths;
+		outletpayment.subscribedMonths=jsonRequest.subscribedMonths;
 		outletpayment.paymentDate=jsonRequest.paymentDate;
 		outletpayment.paymentId=jsonRequest.paymentId;
 		outletpayment.save(function(err){
