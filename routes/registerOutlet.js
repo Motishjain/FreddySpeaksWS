@@ -1,6 +1,5 @@
 var express = require('express');
 var mongoose = require('mongoose');
-console.log("at start!");
 var Outlet = require('../models/outlet');
 var outletSubscription = require('../models/outletSubscription');
 var moment=require('moment');
@@ -17,12 +16,9 @@ function generateUUID() {
 }
 
 function calculateExpiry(cdate) {
-	var m=moment(new Date(cdate));
-		m.add(1,'months');
-	return m;
-};
-
-
+	
+	return moment(cdate, 'MMMM Do YYYY').add(1,'months').format('MMMM Do YYYY');
+}
 
 var jsonResponseObject = function(success, data, msg) {
 	var jsonObject = {};
@@ -31,14 +27,11 @@ var jsonResponseObject = function(success, data, msg) {
 	jsonObject.msg = msg;
 	return jsonObject;
 };
-console.log("before start!");
 module.exports = function(app, appEnv) {
 
 	app.post("/registerOutlet", function(req, res) {
-		console.log("started.");
 		var jsonRequest = req.body;
 		if (jsonRequest.outletCode) {
-			console.log("found code!");
 			Outlet.findOneAndUpdate({
 				'outletCode' : jsonRequest.outletCode
 			}, {
@@ -49,7 +42,7 @@ module.exports = function(app, appEnv) {
 				'email' : jsonRequest.email,
 				'workPhone' : jsonRequest.workPhone,
 				'cellNumber' : jsonRequest.cellNumber,
-				'updateDate':jsonRequest.createdDate
+				'updateDate':new Date(jsonRequest.createdDate)
 			}, function(err, outlet) {
 				if (err) {
 				    console.log('Error Inserting New Data');
@@ -64,9 +57,7 @@ module.exports = function(app, appEnv) {
 			});
 		} else {
 			var outlet = new Outlet();
-			console.log("not found code!");
 			var generatedCode=generateUUID();
-			console.log(generatedCode);
 			outlet.outletName = jsonRequest.outletName;
 			outlet.outletCode = generatedCode;			
 			outlet.addrLine1 = jsonRequest.addrLine1;
@@ -77,7 +68,6 @@ module.exports = function(app, appEnv) {
 			outlet.cellNumber = jsonRequest.cellNumber;
 			outlet.outletTypeCode = jsonRequest.outletTypeCode;
 			outlet.createdDate = jsonRequest.createdDate;
-			console.log(jsonRequest.outletName);
 			outlet.save(function(err) {
 				if (err) {
 				    console.log('Error Inserting New Data');
@@ -88,9 +78,10 @@ module.exports = function(app, appEnv) {
 				    }
 				}
 				else {
+					var expDate=calculateExpiry(jsonRequest.createdDate);
 					var outletSubscribe=new outletSubscription();
 					outletSubscribe.outletCode=generatedCode;
-					outletSubscribe.expiryDate=calculateExpiry(jsonRequest.createdDate);
+					outletSubscribe.expiryDate=expDate;
 					outletSubscribe.activationStatus="TR";
 					outletSubscribe.save(function(err) {
 						if (err) {

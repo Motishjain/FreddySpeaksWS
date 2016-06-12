@@ -5,14 +5,13 @@ var OutletSubscription = require('../models/outletSubscription');
 var moment=require('moment');
 
 function renewSubscription(expdate,bymonths){
-	var currentexpiry=moment(new Date(expdate));
 	switch(bymonths){
 	case '3':
-		return currentexpiry.add(3, 'months');
+		return moment(expdate, 'MMMM Do YYYY').add(3,'months').format('MMMM Do YYYY');
 	case '6':
-		return currentexpiry.add(6, 'months');
+		return moment(expdate).add(6,'months').format('MMMM Do YYYY');
 	case '12':
-		return currentexpiry.add(1, 'year');
+		return moment(expdate).add(1,'year').format('MMMM Do YYYY');
 	}
 }
 var jsonResponseObject=function(success, data, msg){
@@ -30,8 +29,9 @@ module.exports=function(app, appEnv){
 		var outletpayment=new OutletPayment();
 		outletpayment.outletCode=jsonRequest.outletCode;
 		outletpayment.amount=jsonRequest.amount;
-		outletpayment.subscribedMonths=jsonRequest.subscribedMonths;
+		outletpayment.subscripedMonths=jsonRequest.subscribedMonths;
 		outletpayment.paymentDate=jsonRequest.paymentDate;
+		outletpayment.paymentId=jsonRequest.paymentId;
 		outletpayment.save(function(err){
 			if (err) {
 				console.log('Error Inserting New Data');
@@ -59,7 +59,7 @@ module.exports=function(app, appEnv){
 							{
 								'expiryDate' : renewSubscription(eDate,jsonRequest.subscribedMonths),
 								'activationStatus' : "ACT"
-							}, function(err, outletSubscription) {
+							}, function(err, OutletSubscription) {
 								if (err) {
 									res.json(jsonResponseObject(false, null, err));
 								}
