@@ -8,7 +8,8 @@ var outletPayment=new Schema({
 	outletCode : String,
 	amount: Number,
 	subscribedMonths:Number,
-	paymentDate:Date
+	paymentDate:Date,
+	paymentId:String
 });
 
 module.exports = mongoose.model('outletPayments', outletPayment);
