@@ -7,11 +7,11 @@ var moment=require('moment');
 function renewSubscription(expdate,bymonths){
 	switch(bymonths){
 	case '3':
-		return moment(expdate, 'MMMM Do YYYY').add(3,'months').format('MMMM Do YYYY');
+		return moment(expdate, 'MMMM DD, YYYY').add(3,'months').format('MMMM DD, YYYY');
 	case '6':
-		return moment(expdate, 'MMMM Do YYYY').add(6,'months').format('MMMM Do YYYY');
+		return moment(expdate, 'MMMM DD, YYYY').add(6,'months').format('MMMM DD, YYYY');
 	case '12':
-		return moment(expdate, 'MMMM Do YYYY').add(1,'year').format('MMMM Do YYYY');
+		return moment(expdate, 'MMMM DD, YYYY').add(1,'year').format('MMMM DD, YYYY');
 	}
 }
 var jsonResponseObject=function(success, data, msg){
