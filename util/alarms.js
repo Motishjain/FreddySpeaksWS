@@ -11,7 +11,7 @@ function updateSubscription(err, outletSubscription) {
 	}
 	var daysOverDue, daysLeft=0, timeDiff;
 
-	var expirationDate = outletSubscription.expiryDate;
+	var expirationDate = new Date(Date.parse(outletSubscription.expiryDate));
 	var newStatus;
 	if(outletSubscription.activationStatus!==Constants.SUBSCRIPTION_EXPIRED) {
 		if(currentDate>expirationDate) {
@@ -64,6 +64,7 @@ function updateSubscription(err, outletSubscription) {
 			var message = new gcm.Message({    		
 				priority: 'high',
 				contentAvailable: true,
+				collapse_key: 'Subscription',
 				data: {
 					type : 'Subscription',
 					outletCode: outletSubscription.outletCode,
