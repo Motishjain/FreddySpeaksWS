@@ -26,6 +26,7 @@ module.exports=function(app, appEnv){
 
 	app.post("/extendSubscription",function(req,res){
 		var jsonRequest=req.body;
+		console.log('Extend subscription called by'+jsonRequest.outletCode);
 		var outletpayment=new OutletPayment();
 		outletpayment.outletCode=jsonRequest.outletCode;
 		outletpayment.amount=jsonRequest.amount;

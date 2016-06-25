@@ -26,6 +26,7 @@ module.exports = function(app, appEnv) {
 				if (err) {
 					res.json(jsonResponseObject(false, null, err));
 				}
+				console.log('Rewards changed by outlet:'+jsonRequest.outletCode);
 				res.json(jsonResponseObject(true, jsonRequest.outletCode,
 						"Rewards saved Successfully"));
 			});

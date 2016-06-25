@@ -14,7 +14,7 @@ function updateSubscription(err, outletSubscription) {
 	var expirationDate = new Date(Date.parse(outletSubscription.expiryDate));
 	var newStatus;
 	if(outletSubscription.activationStatus!==Constants.SUBSCRIPTION_EXPIRED) {
-		if(currentDate>expirationDate) {
+		if(currentDate>=expirationDate) {
 			timeDiff = currentDate.getTime() - expirationDate.getTime();
 			daysOverDue = parseInt(timeDiff / (1000 * 60 * 60 * 24));
 			if(daysOverDue<7) {
@@ -94,6 +94,7 @@ function updateSubscription(err, outletSubscription) {
 
 module.exports = {
 		checkSubscription: function () {
+			console.log('Daily alarm executing');
 			Outlet.find({}, function(err, outlets) {
 				if (err) {
 					console.log("Error finding outlets");
