@@ -49,19 +49,22 @@ function updateSubscription(err, outletSubscription) {
 			var gcmToken = currentOutlet.gcmToken;
 			var notificationTitle, notificationBody;
 			if(outletSubscription.activationStatus===Constants.SUBSCRIPTION_PENDING) {
+				console.log("Outlet:"+currentOutlet.outletCode+" renewal pending");
 				notificationTitle = 'Renewal Pending';    	
 				notificationBody = 'Expires in '+ (7-daysOverDue) + ' days';
 			}
 			else if(outletSubscription.activationStatus===Constants.SUBSCRIPTION_EXPIRED) {
+				console.log("Outlet:"+currentOutlet.outletCode+" subscription expired");
 				notificationTitle = 'Subscription Expired';
 				notificationBody = 'Please renew your subscription to continue.';
 			}
 			else {
+				console.log("Outlet:"+currentOutlet.outletCode+" reminder sent");
 				notificationTitle = 'Gentle Reminder';    	
 				notificationBody = 'Your subscription will expire in '+ daysLeft + ' days';
 			}
 
-			var message = new gcm.Message({    		
+			/*var message = new gcm.Message({    		
 				priority: 'high',
 				contentAvailable: true,
 				collapse_key: 'Subscription',
@@ -86,7 +89,7 @@ function updateSubscription(err, outletSubscription) {
 				else {
 					console.log(response);
 				}
-			});
+			});*/
 		});
 	}
 
