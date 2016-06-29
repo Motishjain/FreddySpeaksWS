@@ -40,7 +40,6 @@ module.exports = function(app, appEnv) {
 				'addrLine2' : jsonRequest.addrLine2,
 				'pinCode' : jsonRequest.pinCode,
 				'email' : jsonRequest.email,
-				'workPhone' : jsonRequest.workPhone,
 				'cellNumber' : jsonRequest.cellNumber,
 				'updateDate':new Date(jsonRequest.createdDate)
 			}, function(err, outlet) {
@@ -64,7 +63,6 @@ module.exports = function(app, appEnv) {
 			outlet.addrLine2 = jsonRequest.addrLine2;
 			outlet.pinCode = jsonRequest.pinCode;
 			outlet.email = jsonRequest.email;
-			outlet.workPhone = jsonRequest.workPhone;
 			outlet.cellNumber = jsonRequest.cellNumber;
 			outlet.outletTypeCode = jsonRequest.outletTypeCode;
 			outlet.createdDate = jsonRequest.createdDate;
